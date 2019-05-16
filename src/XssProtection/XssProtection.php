@@ -19,12 +19,15 @@ final class XssProtection
 
     private const MODE_BLOCK = '1; mode=block';
 
-    private const MODE_REPORT = '1; report=%s';
-
     /**
      * @var string
      */
     private $mode = self::MODE_BLOCK;
+
+    /**
+     * @var string|null
+     */
+    private $report = null;
 
     /**
      * @return XssProtection
@@ -63,13 +66,22 @@ final class XssProtection
      * @param string $url
      * @return XssProtection
      */
-    public function report(string $url): XssProtection
+    public function withReport(string $url): XssProtection
     {
         $xssProtection = clone $this;
-        $xssProtection->mode = self::MODE_REPORT;
-        $xssProtection->mode = \sprintf($xssProtection->mode, $url);
+        $xssProtection->report = $url;
 
         return $xssProtection;
+    }
+
+    private function generateHeaderValue(): string
+    {
+        $headerValue = $this->mode;
+        if ($this->report !== null) {
+            $headerValue .= '; report=' . $this->report;
+        }
+
+        return $headerValue;
     }
 
     /**
@@ -77,7 +89,7 @@ final class XssProtection
      */
     public function send(): void
     {
-        \header('X-XSS-Protection: ' . $this->mode);
+        \header('X-XSS-Protection: ' . $this->generateHeaderValue());
     }
 
     /**
@@ -86,6 +98,6 @@ final class XssProtection
      */
     public function response(ResponseInterface $response): ResponseInterface
     {
-        return $response->withHeader('x-xss-protection', $this->mode);
+        return $response->withHeader('x-xss-protection', $this->generateHeaderValue());
     }
 }

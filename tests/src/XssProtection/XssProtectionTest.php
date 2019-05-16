@@ -69,7 +69,7 @@ class XssProtectionTest extends TestCase
     public function testReportImmutable()
     {
         $xssProtection = new XssProtection();
-        $newXssProtection = $xssProtection->report('https://www.ixocreate.com');
+        $newXssProtection = $xssProtection->withReport('https://www.ixocreate.com');
         $this->assertNotSame($newXssProtection, $xssProtection);
     }
 
@@ -114,9 +114,9 @@ class XssProtectionTest extends TestCase
         $this->responseMock
             ->expects($this->once())
             ->method('withHeader')
-            ->with('x-xss-protection', '1; report=https://www.ixocreate.com');
+            ->with('x-xss-protection', '1; mode=block; report=https://www.ixocreate.com');
         $xssProtection = new XssProtection();
-        $xssProtection = $xssProtection->report('https://www.ixocreate.com');
+        $xssProtection = $xssProtection->block()->withReport('https://www.ixocreate.com');
 
         $xssProtection->response($this->responseMock);
     }
@@ -172,11 +172,11 @@ class XssProtectionTest extends TestCase
     public function testSendReport()
     {
         $xssProtection = new XssProtection();
-        $xssProtection = $xssProtection->report('https://www.ixocreate.com');
+        $xssProtection = $xssProtection->block()->withReport('https://www.ixocreate.com');
 
         $xssProtection->send();
         $this->assertContains(
-            'X-XSS-Protection: 1; report=https://www.ixocreate.com',
+            'X-XSS-Protection: 1; mode=block; report=https://www.ixocreate.com',
             xdebug_get_headers()
         );
     }

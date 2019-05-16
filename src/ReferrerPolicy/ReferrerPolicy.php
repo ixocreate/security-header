@@ -14,13 +14,21 @@ use Psr\Http\Message\ResponseInterface;
 final class ReferrerPolicy
 {
     private const MODE_DEFAULT = "";
+
     private const MODE_NOREFERRER = "no-referrer";
+
     private const MODE_NOREFERRERWHENDOWNGRADE = "no-referrer-when-downgrade";
+
     private const MODE_SAMEORIGIN = "same-origin";
+
     private const MODE_ORIGIN = "origin";
+
     private const MODE_STRICTORIGIN = "strict-origin";
+
     private const MODE_ORIGINWHENCROSSORIGIN = "origin-when-cross-origin";
+
     private const MODE_STRICTORIGINWHENCROSSORIGIN = "strict-origin-when-cross-origin";
+
     private const MODE_UNSAFEURL = "unsafe-url";
 
     /**

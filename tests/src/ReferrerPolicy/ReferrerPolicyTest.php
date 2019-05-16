@@ -84,7 +84,6 @@ class ReferrerPolicyTest extends TestCase
         $this->assertNotSame($newReferrerPolicy, $referrerPolicy);
     }
 
-
     public function testResponseDefaultMode()
     {
         $this->responseMock

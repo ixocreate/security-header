@@ -14,8 +14,11 @@ use Psr\Http\Message\ResponseInterface;
 final class XssProtection
 {
     private const MODE_DISABLE = '0';
+
     private const MODE_ENABLE = '1';
+
     private const MODE_BLOCK = '1; mode=block';
+
     private const MODE_REPORT = '1; report=%s';
 
     /**

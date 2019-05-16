@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace Ixocreate\Test\SecurityHeader\XssProtection;
 
-use Ixocreate\SecurityHeader\FrameOptions\FrameOptions;
 use Ixocreate\SecurityHeader\XssProtection\XssProtection;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -73,7 +72,6 @@ class XssProtectionTest extends TestCase
         $newXssProtection = $xssProtection->report('https://www.ixocreate.com');
         $this->assertNotSame($newXssProtection, $xssProtection);
     }
-
 
     public function testResponseDisable()
     {

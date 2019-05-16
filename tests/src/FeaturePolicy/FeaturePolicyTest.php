@@ -1,4 +1,10 @@
 <?php
+/**
+ * @link https://github.com/ixocreate
+ * @copyright IXOCREATE GmbH
+ * @license MIT License
+ */
+
 declare(strict_types=1);
 
 namespace Ixocreate\Test\SecurityHeader\FeaturePolicy;
@@ -62,7 +68,7 @@ class FeaturePolicyTest extends TestCase
 
         $featurePolicy = FeaturePolicy::fromArray([
             'policies' => [$autoplay],
-            'dontexist' => 5000
+            'dontexist' => 5000,
         ]);
         $this->assertSame([$autoplay], $this->reflectionPrivateProperty('policies', $featurePolicy));
 
@@ -73,7 +79,6 @@ class FeaturePolicyTest extends TestCase
 
         $featurePolicy = FeaturePolicy::fromArray([]);
         $this->assertSame([], $this->reflectionPrivateProperty('policies', $featurePolicy));
-
     }
 
     /**
@@ -86,7 +91,8 @@ class FeaturePolicyTest extends TestCase
 
         $featurePolicy->send();
         $this->assertContains(
-            "Feature-Policy: autoplay 'none'", xdebug_get_headers()
+            "Feature-Policy: autoplay 'none'",
+            xdebug_get_headers()
         );
     }
 
@@ -103,7 +109,8 @@ class FeaturePolicyTest extends TestCase
 
         $featurePolicy->send();
         $this->assertContains(
-            "Feature-Policy: autoplay 'none'; camera *; geolocation 'self'", xdebug_get_headers()
+            "Feature-Policy: autoplay 'none'; camera *; geolocation 'self'",
+            xdebug_get_headers()
         );
     }
 
@@ -117,7 +124,6 @@ class FeaturePolicyTest extends TestCase
         $featurePolicy->send();
         $this->assertEmpty(xdebug_get_headers());
     }
-
 
     public function testResponseWithOnePolicy()
     {

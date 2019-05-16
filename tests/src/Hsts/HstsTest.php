@@ -1,4 +1,10 @@
 <?php
+/**
+ * @link https://github.com/ixocreate
+ * @copyright IXOCREATE GmbH
+ * @license MIT License
+ */
+
 declare(strict_types=1);
 
 namespace Ixocreate\Test\SecurityHeader\Hsts;
@@ -68,7 +74,7 @@ class HstsTest extends TestCase
             'maxAge' => 1000,
             'includeSubDomains' => false,
             'preload' => false,
-            'dontexist' => 5000
+            'dontexist' => 5000,
         ]);
         $this->assertFalse($this->reflectionPrivateProperty('includeSubDomains', $hsts));
         $this->assertFalse($this->reflectionPrivateProperty('preload', $hsts));
@@ -148,7 +154,8 @@ class HstsTest extends TestCase
 
         $hsts->send();
         $this->assertContains(
-            'Strict-Transport-Security: max-age=1000', xdebug_get_headers()
+            'Strict-Transport-Security: max-age=1000',
+            xdebug_get_headers()
         );
     }
 
@@ -164,7 +171,8 @@ class HstsTest extends TestCase
 
         $hsts->send();
         $this->assertContains(
-            'Strict-Transport-Security: max-age=1000; preload', xdebug_get_headers()
+            'Strict-Transport-Security: max-age=1000; preload',
+            xdebug_get_headers()
         );
     }
 
@@ -180,7 +188,8 @@ class HstsTest extends TestCase
 
         $hsts->send();
         $this->assertContains(
-            'Strict-Transport-Security: max-age=1000; includeSubDomains', xdebug_get_headers()
+            'Strict-Transport-Security: max-age=1000; includeSubDomains',
+            xdebug_get_headers()
         );
     }
 
@@ -196,7 +205,8 @@ class HstsTest extends TestCase
 
         $hsts->send();
         $this->assertContains(
-            'Strict-Transport-Security: max-age=1000; includeSubDomains; preload', xdebug_get_headers()
+            'Strict-Transport-Security: max-age=1000; includeSubDomains; preload',
+            xdebug_get_headers()
         );
     }
 }

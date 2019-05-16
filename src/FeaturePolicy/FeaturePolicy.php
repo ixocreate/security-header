@@ -1,4 +1,10 @@
 <?php
+/**
+ * @link https://github.com/ixocreate
+ * @copyright IXOCREATE GmbH
+ * @license MIT License
+ */
+
 declare(strict_types=1);
 
 namespace Ixocreate\SecurityHeader\FeaturePolicy;
@@ -12,7 +18,6 @@ final class FeaturePolicy
      * @var PolicyInterface[]
      */
     private $policies = [];
-
 
     /**
      * @param PolicyInterface $policy
@@ -88,7 +93,7 @@ final class FeaturePolicy
             return;
         }
 
-        \header('Feature-Policy: '. $headerValue);
+        \header('Feature-Policy: ' . $headerValue);
     }
 
     /**

@@ -1,10 +1,15 @@
 <?php
+/**
+ * @link https://github.com/ixocreate
+ * @copyright IXOCREATE GmbH
+ * @license MIT License
+ */
+
 declare(strict_types=1);
 
 namespace Ixocreate\Test\SecurityHeader\FrameOptions;
 
 use Ixocreate\SecurityHeader\FrameOptions\FrameOptions;
-use Ixocreate\SecurityHeader\Hsts\Hsts;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
@@ -54,7 +59,6 @@ class FrameOptionsTest extends TestCase
         $this->assertNotSame($newFrameOptions, $frameOptions);
     }
 
-
     public function testResponseDeny()
     {
         $this->responseMock
@@ -89,7 +93,8 @@ class FrameOptionsTest extends TestCase
 
         $frameOptions->send();
         $this->assertContains(
-            'X-Frame-Options: deny', xdebug_get_headers()
+            'X-Frame-Options: deny',
+            xdebug_get_headers()
         );
     }
 
@@ -103,7 +108,8 @@ class FrameOptionsTest extends TestCase
 
         $frameOptions->send();
         $this->assertContains(
-            'X-Frame-Options: sameorigin', xdebug_get_headers()
+            'X-Frame-Options: sameorigin',
+            xdebug_get_headers()
         );
     }
 }

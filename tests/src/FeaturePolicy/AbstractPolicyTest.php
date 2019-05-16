@@ -1,4 +1,10 @@
 <?php
+/**
+ * @link https://github.com/ixocreate
+ * @copyright IXOCREATE GmbH
+ * @license MIT License
+ */
+
 declare(strict_types=1);
 
 namespace Ixocreate\Test\SecurityHeader\FeaturePolicy;
@@ -19,8 +25,7 @@ class AbstractPolicyTest extends TestCase
 
     public function setUp()
     {
-        $this->policy = new class extends AbstractPolicy
-        {
+        $this->policy = new class() extends AbstractPolicy {
             public function __construct()
             {
                 parent::__construct("policy");
@@ -96,7 +101,7 @@ class AbstractPolicyTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
 
-        $policy = new class extends AbstractPolicy{
+        $policy = new class() extends AbstractPolicy {
             public function __construct()
             {
             }
@@ -115,13 +120,11 @@ class AbstractPolicyTest extends TestCase
         $policy = $this->policy->allowSelf()->withUrl('https://www.ixocreate.com')->withUrl('https://www.ixolit.com');
 
         $this->assertSame("policy 'self' https://www.ixocreate.com https://www.ixolit.com", $policy->assemble());
-
     }
 
     public function testSelfWithoutUrls()
     {
         $policy = $this->policy->allowSelf();
         $this->assertSame("policy 'self'", $policy->assemble());
-
     }
 }

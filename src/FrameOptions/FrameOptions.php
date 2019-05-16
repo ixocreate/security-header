@@ -1,4 +1,10 @@
 <?php
+/**
+ * @link https://github.com/ixocreate
+ * @copyright IXOCREATE GmbH
+ * @license MIT License
+ */
+
 declare(strict_types=1);
 
 namespace Ixocreate\SecurityHeader\FrameOptions;
@@ -8,6 +14,7 @@ use Psr\Http\Message\ResponseInterface;
 final class FrameOptions
 {
     private const OPTION_DENY = 'deny';
+
     private const OPTION_SAMEORIGIN = 'sameorigin';
 
     /**
@@ -42,7 +49,7 @@ final class FrameOptions
      */
     public function send(): void
     {
-        \header('X-Frame-Options: '. $this->option);
+        \header('X-Frame-Options: ' . $this->option);
     }
 
     /**

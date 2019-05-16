@@ -1,4 +1,10 @@
 <?php
+/**
+ * @link https://github.com/ixocreate
+ * @copyright IXOCREATE GmbH
+ * @license MIT License
+ */
+
 declare(strict_types=1);
 
 namespace Ixocreate\Test\SecurityHeader\ContentTypeOptions;
@@ -11,7 +17,7 @@ use Psr\Http\Message\ResponseInterface;
 /**
  * @covers \Ixocreate\SecurityHeader\ContentTypeOptions\ContentTypeOptions
  */
-class FrameOptionsTest extends TestCase
+class ContentTypeOptionsTest extends TestCase
 {
     /**
      * @var MockObject
@@ -33,7 +39,8 @@ class FrameOptionsTest extends TestCase
 
         $contentTypeOptions->send();
         $this->assertContains(
-            'X-Content-Type-Options: nosniff', xdebug_get_headers()
+            'X-Content-Type-Options: nosniff',
+            xdebug_get_headers()
         );
     }
 

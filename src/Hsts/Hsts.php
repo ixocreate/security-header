@@ -1,4 +1,10 @@
 <?php
+/**
+ * @link https://github.com/ixocreate
+ * @copyright IXOCREATE GmbH
+ * @license MIT License
+ */
+
 declare(strict_types=1);
 
 namespace Ixocreate\SecurityHeader\Hsts;
@@ -103,7 +109,7 @@ final class Hsts
      */
     public function send(): void
     {
-        \header('Strict-Transport-Security: '. $this->generateHeaderValue());
+        \header('Strict-Transport-Security: ' . $this->generateHeaderValue());
     }
 
     /**

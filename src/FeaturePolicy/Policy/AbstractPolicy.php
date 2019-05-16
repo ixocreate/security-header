@@ -1,4 +1,10 @@
 <?php
+/**
+ * @link https://github.com/ixocreate
+ * @copyright IXOCREATE GmbH
+ * @license MIT License
+ */
+
 declare(strict_types=1);
 
 namespace Ixocreate\SecurityHeader\FeaturePolicy\Policy;
@@ -6,7 +12,9 @@ namespace Ixocreate\SecurityHeader\FeaturePolicy\Policy;
 abstract class AbstractPolicy implements PolicyInterface
 {
     private const ALLOW_ALL = "*";
+
     private const ALLOW_SELF = "'self'";
+
     private const ALLOW_NONE = "'none'";
 
     /**

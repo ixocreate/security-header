@@ -8,11 +8,6 @@ use Psr\Http\Message\ResponseInterface;
 final class Hsts
 {
     /**
-     * @var bool
-     */
-    private $enable = true;
-
-    /**
      * @var int
      */
     private $maxAge = 31536000;
@@ -26,28 +21,6 @@ final class Hsts
      * @var bool
      */
     private $preload = false;
-
-    /**
-     * @return Hsts
-     */
-    public function enable(): Hsts
-    {
-        $hsts = clone $this;
-        $hsts->enable = true;
-
-        return $hsts;
-    }
-
-    /**
-     * @return Hsts
-     */
-    public function disable(): Hsts
-    {
-        $hsts = clone $this;
-        $hsts->enable = false;
-
-        return $hsts;
-    }
 
     /**
      * @param int $maxAge
@@ -88,7 +61,6 @@ final class Hsts
     /**
      * Example array
      * [
-     *   'enable' => true,
      *   'maxAge' => 1000,
      *   'includeSubDomains' => false,
      *   'preload' => false,
@@ -100,13 +72,8 @@ final class Hsts
     {
         $hsts = new Hsts();
 
-        foreach (['enable', 'maxAge', 'includeSubDomains', 'preload'] as $key) {
+        foreach (['maxAge', 'includeSubDomains', 'preload'] as $key) {
             if (!\array_key_exists($key, $array)) {
-                continue;
-            }
-
-            if ($key === 'enable') {
-                $hsts = ($array[$key] === true) ? $hsts->enable() : $hsts->disable();
                 continue;
             }
 
@@ -136,10 +103,6 @@ final class Hsts
      */
     public function send(): void
     {
-        if ($this->enable === false) {
-            return;
-        }
-
         \header('Strict-Transport-Security: '. $this->generateHeaderValue());
     }
 
@@ -149,10 +112,6 @@ final class Hsts
      */
     public function response(ResponseInterface $response): ResponseInterface
     {
-        if ($this->enable === false) {
-            return $response;
-        }
-
         return $response->withHeader('strict-transport-security', $this->generateHeaderValue());
     }
 }

@@ -36,70 +36,48 @@ class HstsTest extends TestCase
     public function testDefaults()
     {
         $hsts = new Hsts();
-        $this->assertTrue($this->reflectionPrivateProperty('enable', $hsts));
         $this->assertTrue($this->reflectionPrivateProperty('includeSubDomains', $hsts));
         $this->assertFalse($this->reflectionPrivateProperty('preload', $hsts));
         $this->assertSame(31536000, $this->reflectionPrivateProperty('maxAge', $hsts));
     }
 
-    public function testEnable()
-    {
-        $hsts = new Hsts();
-        $newHsts = $hsts->enable();
-        $this->assertNotSame($newHsts, $hsts);
-        $this->assertTrue($this->reflectionPrivateProperty('enable', $newHsts));
-    }
-
-    public function testDisable()
-    {
-        $hsts = new Hsts();
-        $newHsts = $hsts->disable();
-        $this->assertNotSame($newHsts, $hsts);
-        $this->assertFalse($this->reflectionPrivateProperty('enable', $newHsts));
-    }
-
-    public function testWithMaxAge()
+    public function testWithMaxAgeImmutable()
     {
         $hsts = new Hsts();
         $newHsts = $hsts->withMaxAge(1000);
         $this->assertNotSame($newHsts, $hsts);
-        $this->assertSame(1000, $this->reflectionPrivateProperty('maxAge', $newHsts));
     }
 
-    public function testWithIncludeSubDomains()
+    public function testWithIncludeSubDomainsImmutable()
     {
         $hsts = new Hsts();
         $newHsts = $hsts->withIncludeSubDomains(false);
         $this->assertNotSame($newHsts, $hsts);
-        $this->assertFalse($this->reflectionPrivateProperty('includeSubDomains', $newHsts));
     }
 
-    public function testWithPreload()
+    public function testWithPreloadImmutable()
     {
         $hsts = new Hsts();
         $newHsts = $hsts->withPreload(true);
         $this->assertNotSame($newHsts, $hsts);
-        $this->assertTrue($this->reflectionPrivateProperty('preload', $newHsts));
     }
 
     public function testFromArray()
     {
         $hsts = Hsts::fromArray([
-            'enable' => true,
             'maxAge' => 1000,
             'includeSubDomains' => false,
             'preload' => false,
             'dontexist' => 5000
         ]);
-        $this->assertTrue($this->reflectionPrivateProperty('enable', $hsts));
         $this->assertFalse($this->reflectionPrivateProperty('includeSubDomains', $hsts));
         $this->assertFalse($this->reflectionPrivateProperty('preload', $hsts));
         $this->assertSame(1000, $this->reflectionPrivateProperty('maxAge', $hsts));
 
         $hsts = Hsts::fromArray([
-            'enable' => false,
+            'includeSubDomains' => false,
         ]);
-        $this->assertFalse($this->reflectionPrivateProperty('enable', $hsts));
+        $this->assertFalse($this->reflectionPrivateProperty('includeSubDomains', $hsts));
     }
 
     public function testResponseWithOnlyMaxAge()
@@ -154,16 +132,6 @@ class HstsTest extends TestCase
         $hsts = $hsts->withPreload(true);
         $hsts = $hsts->withIncludeSubDomains(true);
         $hsts = $hsts->withMaxAge(1000);
-
-        $hsts->response($this->responseMock);
-    }
-
-    public function testResponseDisabled()
-    {
-        $this->responseMock
-            ->expects($this->never())
-            ->method('withHeader');
-        $hsts = (new Hsts())->disable();
 
         $hsts->response($this->responseMock);
     }
@@ -230,16 +198,5 @@ class HstsTest extends TestCase
         $this->assertContains(
             'Strict-Transport-Security: max-age=1000; includeSubDomains; preload', xdebug_get_headers()
         );
-    }
-
-    /**
-     * @runInSeparateProcess
-     */
-    public function testSendDisabled()
-    {
-        $hsts = (new Hsts())->disable();
-        $hsts->send();
-
-        $this->assertEmpty(xdebug_get_headers());
     }
 }

@@ -1,4 +1,4 @@
-# IXOCREATE security-header
+# IXOCREATE Security Header Library
 
 [![Build Status](https://travis-ci.com/ixocreate/security-header.svg?branch=master)](https://travis-ci.com/ixocreate/security-header)
 [![Coverage Status](https://coveralls.io/repos/github/ixocreate/security-header/badge.svg?branch=master)](https://coveralls.io/github/ixocreate/security-header?branch=master)
@@ -29,9 +29,9 @@ Learn more about IXOCREATE by reading its [Documentation](https://ixocreate.gith
 
 Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
 
-## security-header Vulnerabilities
+## Security Vulnerabilities
 
-If you discover security-header vulnerabilities, please address issues directly to opensource@ixocreate.com via e-mail.
+If you discover security vulnerabilities, please address issues directly to opensource@ixocreate.com via e-mail.
 
 ## License
 

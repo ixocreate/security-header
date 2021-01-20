@@ -24,7 +24,7 @@ class ContentTypeOptionsTest extends TestCase
      */
     private $responseMock;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->responseMock = $this->createMock(ResponseInterface::class);
         $this->responseMock->method('withHeader')->willReturnSelf();

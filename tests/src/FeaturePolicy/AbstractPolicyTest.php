@@ -23,7 +23,7 @@ class AbstractPolicyTest extends TestCase
      */
     private $policy;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->policy = new class() extends AbstractPolicy {
             public function __construct()
